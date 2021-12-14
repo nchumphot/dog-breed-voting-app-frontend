@@ -1,4 +1,4 @@
-import VotingCard from "./VotingCard";
+import VotingCards from "./VotingCards";
 import LeaderboardCard from "./LeaderboardCard";
 import "../css/MainBody.css";
 
@@ -6,8 +6,7 @@ function MainBody(): JSX.Element {
   return (
     <>
       <div className="voting-card">
-        <VotingCard />
-        <VotingCard />
+        <VotingCards />
       </div>
       <h2>Leaderboard</h2>
       <LeaderboardCard />
