@@ -2,11 +2,6 @@ import VotingCard from "./VotingCard";
 import { useEffect, useState } from "react";
 import { cleanAPIData } from "../utils/cleanAPIData";
 
-interface IDogRaw {
-  message: string[];
-  status: string;
-}
-
 interface IDogInfo {
   breed: string;
   subbreed: string | null;
@@ -16,7 +11,7 @@ interface IDogInfo {
 export default function VotingCards(): JSX.Element {
   //   const [firstLoad, setFirstLoad] = useState<boolean>(true);
   const [dogInfo, setDogInfo] = useState<IDogInfo[]>();
-  const [dogVoted, setDogVoted] = useState<IDogInfo>();
+  // const [dogVoted, setDogVoted] = useState<IDogInfo>();
 
   useEffect(() => {
     const getTwoDogs = () => {
@@ -25,7 +20,7 @@ export default function VotingCards(): JSX.Element {
         .then((data) => setDogInfo(data.message.map(cleanAPIData)));
     };
     getTwoDogs();
-  }, [dogVoted]);
+  }, []);
 
   console.log(dogInfo);
 
