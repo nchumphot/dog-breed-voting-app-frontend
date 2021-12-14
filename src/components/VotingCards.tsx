@@ -1,6 +1,8 @@
 import VotingCard from "./VotingCard";
 import { useEffect, useState } from "react";
 import { cleanAPIData } from "../utils/cleanAPIData";
+import { API_BASE } from "../utils/APIFragments";
+import axios from "axios";
 
 interface IDogInfo {
   breed: string;
@@ -11,7 +13,7 @@ interface IDogInfo {
 export default function VotingCards(): JSX.Element {
   //   const [firstLoad, setFirstLoad] = useState<boolean>(true);
   const [dogInfo, setDogInfo] = useState<IDogInfo[]>();
-  // const [dogVoted, setDogVoted] = useState<IDogInfo>();
+  const [dogVoted, setDogVoted] = useState<IDogInfo>();
 
   useEffect(() => {
     const getTwoDogs = () => {
@@ -20,16 +22,29 @@ export default function VotingCards(): JSX.Element {
         .then((data) => setDogInfo(data.message.map(cleanAPIData)));
     };
     getTwoDogs();
-  }, []);
+  }, [dogVoted]);
 
   console.log(dogInfo);
+
+  const handleVote = (dog: IDogInfo): void => {
+    axios
+      .put(`${API_BASE}/score`, {
+        breed: dog.breed,
+        subbreed: dog.subbreed,
+      })
+      .then((response) => {
+        console.log(response);
+        setDogVoted(dog);
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <>
       {dogInfo !== undefined &&
         dogInfo.map((dog, idx) => (
           <div key={idx}>
-            <VotingCard dog={dog} />
+            <VotingCard dog={dog} handleVote={handleVote} />
           </div>
         ))}
     </>

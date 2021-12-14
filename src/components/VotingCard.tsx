@@ -1,5 +1,4 @@
 import "../css/VotingCard.css";
-// state of random dogs to display
 
 interface IDogInfo {
   breed: string;
@@ -7,9 +6,12 @@ interface IDogInfo {
   URL: string;
 }
 
-function VotingCard(props: { dog: IDogInfo }): JSX.Element {
+function VotingCard(props: {
+  dog: IDogInfo;
+  handleVote: (dog: IDogInfo) => void;
+}): JSX.Element {
   return (
-    <button className="card-button">
+    <button className="card-button" onClick={() => props.handleVote(props.dog)}>
       <img src={props.dog.URL} alt="votingcard" />
       <h3>{props.dog.breed[0].toUpperCase() + props.dog.breed.substr(1)}</h3>
       <p>
