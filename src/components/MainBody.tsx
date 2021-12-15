@@ -20,7 +20,7 @@ function MainBody(): JSX.Element {
       setTopTenList(listTopDogs.scores);
     };
     fetchTopDogs();
-  }, [triggerLeaderboard]);
+  }, []);
 
   const leaderboardList = topTenList.map((dog: Dog, index) => (
     <LeaderboardCard key={index} position={index + 1} dog={dog} />
@@ -37,11 +37,11 @@ function MainBody(): JSX.Element {
           <button onClick={() => setTriggerLeaderboard(!triggerLeaderboard)}>
             Refresh Leaderboard
           </button>
-          {/* <TopThree
+          <TopThree
             dogs={topTenList}
             triggerLeaderboard={triggerLeaderboard}
             setTriggerLeaderboard={setTriggerLeaderboard}
-          /> */}
+          />
           <table className="leaderboard-table">
             <tr>
               <th>Position</th>
