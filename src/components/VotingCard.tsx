@@ -6,6 +6,7 @@ function VotingCard(): JSX.Element {
       <img
         src="https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg"
         alt="votingcard"
+        className="img-voting"
       />
       <h3>Dog Breed</h3>
       <p>Dog Sub-breed</p>
