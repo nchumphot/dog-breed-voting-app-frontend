@@ -1,16 +1,19 @@
-// state that saves list of top 10 dog breeds
+import "../css/LeaderboardCard.css";
+import Dog from "./DogInterface";
 
-function LeaderboardCard(): JSX.Element {
+export interface LeaderboardCards {
+  position: number;
+  dog: Dog;
+}
+
+function LeaderboardCard(props: LeaderboardCards): JSX.Element {
   return (
-    <>
-      <img
-        src="https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg"
-        alt="leaderboard-card"
-      />
-      <h5>Dog Breed</h5>
-      <h6>Dog Sub-breed</h6>
-      <p>Num-Votes</p>
-    </>
+    <tr>
+      <td>{props.position}</td>
+      <td>{props.dog.name}</td>
+      <td>{props.dog.subbreed_name}</td>
+      <td>{props.dog.score}</td>
+    </tr>
   );
 }
 
