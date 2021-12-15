@@ -1,7 +1,5 @@
-//css
 import "../css/MainBody.css";
-//componenets
-import VotingCard from "./VotingCard";
+import VotingCards from "./VotingCards";
 import LeaderboardCard from "./LeaderboardCard";
 // Hooks
 import { useEffect, useState } from "react";
@@ -33,9 +31,8 @@ function MainBody(): JSX.Element {
   // Main Body Component
   return (
     <>
-      <div className="voting-cards">
-        <VotingCard />
-        <VotingCard />
+      <div className="voting-card">
+        <VotingCards />
       </div>
       <h2>Leaderboard</h2>
       <button>Refresh</button>
