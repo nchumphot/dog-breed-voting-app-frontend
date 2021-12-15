@@ -1,6 +1,7 @@
 import "../css/MainBody.css";
 import VotingCards from "./VotingCards";
 import LeaderboardCard from "./LeaderboardCard";
+import TopThree from "./TopThree";
 // Hooks
 import { useEffect, useState } from "react";
 //interface
@@ -27,7 +28,8 @@ function MainBody(): JSX.Element {
   const leaderboardList = topTenList.map((dog: Dog, index) => (
     <LeaderboardCard key={index} position={index + 1} dog={dog} />
   ));
-
+  
+  
   // Main Body Component
   return (
     <>
@@ -36,6 +38,9 @@ function MainBody(): JSX.Element {
       </div>
       <h2>Leaderboard</h2>
       <button>Refresh</button>
+      <TopThree 
+        dogs={topTenList}
+      />
       <table>
         <tr>
           <th>Position</th>
