@@ -1,7 +1,37 @@
 img {
-  width: 500px;
-  height: 300px;
+  /* 16:9 aspect ratio */
+  width: 512px;
+  height: 288px;
+  padding-top: 10px;
 }
+
 button {
   margin: 20px;
+}
+
+.card-button {
+  width: 550px;
+  height: 375px;
+  background-color: white;
+  border-radius: 12px;
+  border: 2px solid #e2c1be;
+  transition: 0.2s;
+}
+
+.card-button:hover {
+  background-color: #e2c1be;
+  color: rgb(129, 64, 83);
+}
+
+.breed-name {
+  padding: 5px;
+}
+
+.breed-name > h3 {
+  font-size: 20px;
+}
+
+.breed-name > p {
+  font-size: 14px;
+  font-style: italic;
 }
