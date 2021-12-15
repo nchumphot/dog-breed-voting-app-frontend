@@ -27,29 +27,32 @@ function MainBody(): JSX.Element {
   ));
 
   return (
-    <>
+    <section className="main-body">
       <div className="voting-card">
         <VotingCards />
       </div>
-      <h2>Leaderboard</h2>
-      <button onClick={() => setTriggerLeaderboard(!triggerLeaderboard)}>
-        Refresh
-      </button>
-      <TopThree
-        dogs={topTenList}
-        triggerLeaderboard={triggerLeaderboard}
-        setTriggerLeaderboard={setTriggerLeaderboard}
-      />
-      <table>
-        <tr>
-          <th>Position</th>
-          <th>Breed</th>
-          <th>Sub-breed</th>
-          <th>Scores</th>
-        </tr>
-        {leaderboardList}
-      </table>
-    </>
+      {topTenList.length === 10 && (
+        <div className="table-area">
+          <h2>Leaderboard</h2>
+          <button onClick={() => setTriggerLeaderboard(!triggerLeaderboard)}>
+            Refresh Leaderboard
+          </button>
+          {/* <TopThree
+            dogs={topTenList}
+            triggerLeaderboard={triggerLeaderboard}
+            setTriggerLeaderboard={setTriggerLeaderboard}
+          /> */}
+          <table className="leaderboard-table">
+            <tr>
+              <th>Position</th>
+              <th>Breed</th>
+              <th>Scores</th>
+            </tr>
+            {leaderboardList}
+          </table>
+        </div>
+      )}
+    </section>
   );
 }
 

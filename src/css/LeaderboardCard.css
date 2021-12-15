@@ -1,0 +1,8 @@
+.leaderboard-card {
+  text-align: center;
+}
+
+.leaderboard-card td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
