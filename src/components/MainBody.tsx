@@ -37,11 +37,11 @@ function MainBody(): JSX.Element {
           <button onClick={() => setTriggerLeaderboard(!triggerLeaderboard)}>
             Refresh Leaderboard
           </button>
-          <TopThree
+          {/* <TopThree
             dogs={topTenList}
             triggerLeaderboard={triggerLeaderboard}
             setTriggerLeaderboard={setTriggerLeaderboard}
-          />
+          /> */}
           <table className="leaderboard-table">
             <tr>
               <th>Position</th>
