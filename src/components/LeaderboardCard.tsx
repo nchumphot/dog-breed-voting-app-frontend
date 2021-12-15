@@ -2,8 +2,8 @@ import "../css/LeaderboardCard.css";
 import Dog from "./DogInterface";
 
 export interface LeaderboardCards {
-  position: number,
-  dog: Dog,
+  position: number;
+  dog: Dog;
 }
 
 function LeaderboardCard(props: LeaderboardCards): JSX.Element {

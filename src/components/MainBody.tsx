@@ -8,15 +8,18 @@ import { useEffect, useState } from "react";
 //interface
 import Dog from "./DogInterface";
 
-
 function MainBody(): JSX.Element {
   //use states
-  const [topTenList, setTopTenList] = useState<Dog[]>([{name: "", subbreed_name: "", score:0}])
+  const [topTenList, setTopTenList] = useState<Dog[]>([
+    { name: "", subbreed_name: "", score: 0 },
+  ]);
 
   // Fetch top 10 voted dog breeds and create leaderboard list
   useEffect(() => {
     const fetchTopDogs = async () => {
-      const response = await fetch("https://dog-breed-voting-app.herokuapp.com/score");
+      const response = await fetch(
+        "https://dog-breed-voting-app.herokuapp.com/score"
+      );
       const listTopDogs = await response.json();
       setTopTenList(listTopDogs.scores);
     };
@@ -24,11 +27,7 @@ function MainBody(): JSX.Element {
   }, []);
 
   const leaderboardList = topTenList.map((dog: Dog, index) => (
-    <LeaderboardCard 
-      key={index}
-      position={index+1}
-      dog={dog}
-    />
+    <LeaderboardCard key={index} position={index + 1} dog={dog} />
   ));
 
   // Main Body Component
