@@ -1,6 +1,5 @@
 img {
-  /* 16:9 aspect ratio */
-  width: 512px;
+  width: auto;
   height: 288px;
   padding-top: 10px;
 }
