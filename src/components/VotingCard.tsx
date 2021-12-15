@@ -12,12 +12,24 @@ function VotingCard(props: {
 }): JSX.Element {
   return (
     <button className="card-button" onClick={() => props.handleVote(props.dog)}>
-      <img src={props.dog.URL} alt="votingcard" />
-      <h3>{props.dog.breed[0].toUpperCase() + props.dog.breed.substr(1)}</h3>
-      <p>
-        {props.dog.subbreed !== null &&
-          props.dog.subbreed[0].toUpperCase() + props.dog.subbreed.substr(1)}
-      </p>
+      <img className="dog-image" src={props.dog.URL} alt="votingcard" />
+      <div className="breed-name">
+        {props.dog.breed !== undefined && (
+          <>
+            <p>
+              {props.dog.subbreed !== null ? (
+                props.dog.subbreed[0].toUpperCase() +
+                props.dog.subbreed.substr(1)
+              ) : (
+                <br />
+              )}
+            </p>
+            <h3>
+              {props.dog.breed[0].toUpperCase() + props.dog.breed.substr(1)}
+            </h3>
+          </>
+        )}
+      </div>
     </button>
   );
 }

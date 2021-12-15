@@ -1,6 +1,41 @@
-.voting-cards {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 450px;
+.leaderboard-table {
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+}
+
+.leaderboard-table tr th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table-area {
+  width: 100%;
+}
+
+.main-body {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+button {
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid #e2c1be;
+  transition: 0.2s;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #e2c1be;
+  color: rgb(129, 64, 83);
+}
+
+h2 {
+  font-size: 30px;
 }

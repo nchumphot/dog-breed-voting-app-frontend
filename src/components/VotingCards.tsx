@@ -2,7 +2,10 @@ import VotingCard from "./VotingCard";
 import { useEffect, useState } from "react";
 import { cleanAPIData } from "../utils/cleanAPIData";
 import { API_BASE } from "../utils/APIFragments";
+import { trackPromise } from "react-promise-tracker";
 import axios from "axios";
+import { LoadingIndicator } from "./LoadingIndicator";
+import "../css/VotingCards.css";
 
 interface IDogInfo {
   breed: string;
@@ -11,15 +14,16 @@ interface IDogInfo {
 }
 
 export default function VotingCards(): JSX.Element {
-  //   const [firstLoad, setFirstLoad] = useState<boolean>(true);
   const [dogInfo, setDogInfo] = useState<IDogInfo[]>();
   const [dogVoted, setDogVoted] = useState<IDogInfo>();
 
   useEffect(() => {
     const getTwoDogs = () => {
-      fetch("https://dog.ceo/api/breeds/image/random/2")
-        .then((res) => res.json())
-        .then((data) => setDogInfo(data.message.map(cleanAPIData)));
+      trackPromise(
+        fetch("https://dog.ceo/api/breeds/image/random/2")
+          .then((res) => res.json())
+          .then((data) => setDogInfo(data.message.map(cleanAPIData)))
+      );
     };
     getTwoDogs();
   }, [dogVoted]);
@@ -40,13 +44,14 @@ export default function VotingCards(): JSX.Element {
   };
 
   return (
-    <>
+    <div className="voting-cards">
+      <LoadingIndicator />
       {dogInfo !== undefined &&
         dogInfo.map((dog, idx) => (
           <div key={idx}>
             <VotingCard dog={dog} handleVote={handleVote} />
           </div>
         ))}
-    </>
+    </div>
   );
 }
