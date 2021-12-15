@@ -1,0 +1,8 @@
+.voting-cards {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 450px;
+  width: 100%;
+  margin: 0 auto;
+}
