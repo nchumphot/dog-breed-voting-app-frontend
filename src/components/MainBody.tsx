@@ -30,22 +30,25 @@ function MainBody(): JSX.Element {
 
   // Main Body Component
   return (
-    <>
+    <section className="main-body">
       <div className="voting-card">
         <VotingCards />
       </div>
-      <h2>Leaderboard</h2>
-      <button>Refresh</button>
-      <table>
-        <tr>
-          <th>Position</th>
-          <th>Breed</th>
-          <th>Sub-breed</th>
-          <th>Scores</th>
-        </tr>
-        {leaderboardList}
-      </table>
-    </>
+      {topTenList.length === 10 && (
+        <div className="table-area">
+          <h2>Leaderboard</h2>
+          <button>Refresh Leaderboard</button>
+          <table className="leaderboard-table">
+            <tr>
+              <th>Position</th>
+              <th>Breed</th>
+              <th>Scores</th>
+            </tr>
+            {leaderboardList}
+          </table>
+        </div>
+      )}
+    </section>
   );
 }
 
