@@ -1,34 +1,63 @@
 import Dog from "./DogInterface";
 import { useEffect, useState } from "react";
+import TopThreeCard from "./TopThreeCard";
 
-export default function TopThree(props: {dogs: Dog[]}): JSX.Element {
-  const [topThreeImg, setTopThreeImg] = useState<string[]>([])
+interface ITopThree {
+  rank: number;
+  breed: string;
+  subbreed: string | null;
+  url: string;
+}
 
-  const top_breeds = props.dogs.slice(0,3).map((dog:Dog, index) => {
-    if(dog.subbreed_name === null) {
-      return `https://dog.ceo/api/breed/${dog.name}/images/random`
+export default function TopThree(props: {
+  dogs: Dog[];
+  triggerLeaderboard: boolean;
+  setTriggerLeaderboard: (val: boolean) => void;
+}): JSX.Element {
+  const [dogImgs, setDogImgs] = useState<string[]>([]);
+
+  const topThreeDogs = props.dogs.slice(0, 3).map((dog: Dog, index) => {
+    if (dog.subbreed_name === null) {
+      return {
+        rank: index + 1,
+        breed: dog.name,
+        subbreed: null,
+        url: `https://dog.ceo/api/breed/${dog.name}/images/random`,
+        image: null,
+      };
     } else {
-      return `https://dog.ceo/api/breed/${dog.name}/${dog.subbreed_name}/images/random`
+      return {
+        rank: index + 1,
+        breed: dog.name,
+        subbreed: dog.subbreed_name,
+        url: `https://dog.ceo/api/breed/${dog.name}/${dog.subbreed_name}/images/random`,
+        image: null,
+      };
     }
   });
 
   useEffect(() => {
-    const getImages = async (top_breeds: string[]) => {
-      top_breeds.forEach((url) => {
-        fetch(url)
-        .then((response) => response.json())
-        .then((data) => setTopThreeImg([...topThreeImg, data.message]))
-      })
+    setDogImgs([]);
+    const getImages = async (topThreeDogs: ITopThree[]) => {
+      topThreeDogs.forEach((dog) => {
+        fetch(dog.url)
+          .then((response) => response.json())
+          .then((data) => {
+            setDogImgs([...dogImgs, data.message]);
+          });
+      });
     };
-    getImages(top_breeds);
-  }, [])
+    getImages(topThreeDogs);
+    console.log(dogImgs);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topThreeDogs]);
 
-  
   return (
     <div>
-      <img src={topThreeImg[0]} alt="top-dog"></img>
-      <img src={topThreeImg[1]} alt="underdog"></img>
-      <img src={topThreeImg[2]} alt="noonecares"></img>
+      {topThreeDogs.length === 3 &&
+        topThreeDogs.map((dog, index) => (
+          <TopThreeCard key={index} dog={dog} image={dogImgs[index]} />
+        ))}
     </div>
-  )
+  );
 }

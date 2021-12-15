@@ -2,18 +2,15 @@ import "../css/MainBody.css";
 import VotingCards from "./VotingCards";
 import LeaderboardCard from "./LeaderboardCard";
 import TopThree from "./TopThree";
-// Hooks
 import { useEffect, useState } from "react";
-//interface
 import Dog from "./DogInterface";
 
 function MainBody(): JSX.Element {
-  //use states
+  const [triggerLeaderboard, setTriggerLeaderboard] = useState<boolean>(true);
   const [topTenList, setTopTenList] = useState<Dog[]>([
     { name: "", subbreed_name: "", score: 0 },
   ]);
 
-  // Fetch top 10 voted dog breeds and create leaderboard list
   useEffect(() => {
     const fetchTopDogs = async () => {
       const response = await fetch(
@@ -23,23 +20,25 @@ function MainBody(): JSX.Element {
       setTopTenList(listTopDogs.scores);
     };
     fetchTopDogs();
-  }, []);
+  }, [triggerLeaderboard]);
 
   const leaderboardList = topTenList.map((dog: Dog, index) => (
     <LeaderboardCard key={index} position={index + 1} dog={dog} />
   ));
-  
-  
-  // Main Body Component
+
   return (
     <>
       <div className="voting-card">
         <VotingCards />
       </div>
       <h2>Leaderboard</h2>
-      <button>Refresh</button>
-      <TopThree 
+      <button onClick={() => setTriggerLeaderboard(!triggerLeaderboard)}>
+        Refresh
+      </button>
+      <TopThree
         dogs={topTenList}
+        triggerLeaderboard={triggerLeaderboard}
+        setTriggerLeaderboard={setTriggerLeaderboard}
       />
       <table>
         <tr>
