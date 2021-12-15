@@ -1,14 +1,23 @@
 import "../css/VotingCard.css";
-// state of random dogs to display
-function VotingCard(): JSX.Element {
+
+interface IDogInfo {
+  breed: string;
+  subbreed: string | null;
+  URL: string;
+}
+
+function VotingCard(props: {
+  dog: IDogInfo;
+  handleVote: (dog: IDogInfo) => void;
+}): JSX.Element {
   return (
-    <button className="card-button">
-      <img
-        src="https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg"
-        alt="votingcard"
-      />
-      <h3>Dog Breed</h3>
-      <p>Dog Sub-breed</p>
+    <button className="card-button" onClick={() => props.handleVote(props.dog)}>
+      <img src={props.dog.URL} alt="votingcard" />
+      <h3>{props.dog.breed[0].toUpperCase() + props.dog.breed.substr(1)}</h3>
+      <p>
+        {props.dog.subbreed !== null &&
+          props.dog.subbreed[0].toUpperCase() + props.dog.subbreed.substr(1)}
+      </p>
     </button>
   );
 }
