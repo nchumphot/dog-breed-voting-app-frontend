@@ -5,6 +5,7 @@ import LeaderboardCard from "./LeaderboardCard";
 import { useEffect, useState } from "react";
 //interface
 import Dog from "./DogInterface";
+import { fetchTopDogs } from "../utils/fetchTopDogs";
 
 function MainBody(): JSX.Element {
   //use states
@@ -14,14 +15,7 @@ function MainBody(): JSX.Element {
 
   // Fetch top 10 voted dog breeds and create leaderboard list
   useEffect(() => {
-    const fetchTopDogs = async () => {
-      const response = await fetch(
-        "https://dog-breed-voting-app.herokuapp.com/score"
-      );
-      const listTopDogs = await response.json();
-      setTopTenList(listTopDogs.scores);
-    };
-    fetchTopDogs();
+    fetchTopDogs(setTopTenList);
   }, []);
 
   const leaderboardList = topTenList.map((dog: Dog, index) => (
@@ -37,7 +31,9 @@ function MainBody(): JSX.Element {
       {topTenList.length === 10 && (
         <div className="table-area">
           <h2>Leaderboard</h2>
-          <button>Refresh Leaderboard</button>
+          <button onClick={() => fetchTopDogs(setTopTenList)}>
+            Refresh Leaderboard
+          </button>
           <table className="leaderboard-table">
             <tr>
               <th>Position</th>
