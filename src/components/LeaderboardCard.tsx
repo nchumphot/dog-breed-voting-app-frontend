@@ -1,5 +1,6 @@
 import "../css/LeaderboardCard.css";
 import Dog from "./DogInterface";
+import { capitalise } from "../utils/capitalise";
 
 export interface LeaderboardCards {
   position: number;
@@ -7,15 +8,11 @@ export interface LeaderboardCards {
 }
 
 function LeaderboardCard(props: LeaderboardCards): JSX.Element {
-  const capital = (name: string) => {
-    return name[0].toUpperCase() + name.substr(1);
-  };
-
   const nameToPrint = (dogType: Dog) => {
     if (dogType.subbreed_name !== null) {
-      return `${capital(dogType.subbreed_name)} ${capital(dogType.name)}`;
+      return `${capitalise(dogType.subbreed_name)} ${capitalise(dogType.name)}`;
     } else {
-      return `${capital(dogType.name)}`;
+      return `${capitalise(dogType.name)}`;
     }
   };
   return (

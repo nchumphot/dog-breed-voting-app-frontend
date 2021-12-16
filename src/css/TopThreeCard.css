@@ -1,0 +1,42 @@
+.top-three-card {
+  text-align: center;
+  padding: 10px 0;
+  margin: 10px;
+  height: 100%;
+  width: 30%;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.top-three-card h2 {
+  font-size: 20px;
+  padding: 10px;
+}
+
+#rank1 {
+  border: 2px solid rgb(200, 176, 114);
+}
+
+#rank1:hover {
+  background-color: rgb(200, 176, 114);
+}
+
+#rank2 {
+  border: 2px solid rgb(156, 145, 147);
+}
+
+#rank2:hover {
+  background-color: rgb(156, 145, 147);
+}
+
+#rank3 {
+  border: 2px solid rgb(209, 133, 114);
+}
+
+#rank3:hover {
+  background-color: rgb(209, 133, 114);
+}
+
+.top-three-card img {
+  height: 200px;
+}
