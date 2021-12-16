@@ -1,16 +1,29 @@
-// state that saves list of top 10 dog breeds
+import "../css/LeaderboardCard.css";
+import Dog from "./DogInterface";
 
-function LeaderboardCard(): JSX.Element {
+export interface LeaderboardCards {
+  position: number;
+  dog: Dog;
+}
+
+function LeaderboardCard(props: LeaderboardCards): JSX.Element {
+  const capital = (name: string) => {
+    return name[0].toUpperCase() + name.substr(1);
+  };
+
+  const nameToPrint = (dogType: Dog) => {
+    if (dogType.subbreed_name !== null) {
+      return `${capital(dogType.subbreed_name)} ${capital(dogType.name)}`;
+    } else {
+      return `${capital(dogType.name)}`;
+    }
+  };
   return (
-    <>
-      <img
-        src="https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg"
-        alt="leaderboard-card"
-      />
-      <h5>Dog Breed</h5>
-      <h6>Dog Sub-breed</h6>
-      <p>Num-Votes</p>
-    </>
+    <tr className="leaderboard-card">
+      <td>{props.position}</td>
+      <td>{props.dog !== undefined && nameToPrint(props.dog)}</td>
+      <td>{props.dog.score}</td>
+    </tr>
   );
 }
 
