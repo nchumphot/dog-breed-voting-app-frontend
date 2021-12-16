@@ -1,6 +1,7 @@
 import Dog from "./DogInterface";
 import { useEffect, useState } from "react";
 import TopThreeCard from "./TopThreeCard";
+import "../css/TopThree.css";
 
 interface ITopThree {
   rank: number;
@@ -10,21 +11,17 @@ interface ITopThree {
   image?: string;
 }
 
-export default function TopThree(props: { dogs: Dog[] }): JSX.Element {
-  const [dogImgs, setDogImgs] = useState<string[]>([]);
+interface TopThreeProps {
+  dogs: Dog[];
+  first: string;
+  second: string;
+  third: string;
+}
+
+export default function TopThree(props: TopThreeProps): JSX.Element {
   const [topThreeDogs, setTopThreeDogs] = useState<ITopThree[]>([]);
 
   useEffect(() => {
-    const softCopy = topThreeDogs;
-    topThreeDogs.forEach((dog, index) => {
-      fetch(dog.url)
-        .then((response) => response.json())
-        .then((data) => {
-          softCopy[index].image = data.message;
-          setTopThreeDogs(softCopy);
-        });
-    });
-    console.log(topThreeDogs);
     setTopThreeDogs(
       props.dogs.slice(0, 3).map((dog: Dog, index) => {
         if (dog.subbreed_name === null) {
@@ -46,43 +43,17 @@ export default function TopThree(props: { dogs: Dog[] }): JSX.Element {
         }
       })
     );
-    console.log(topThreeDogs);
-    // const getImages = async (topThreeDogs: ITopThree[]) => {
-    // const softCopy = topThreeDogs;
-    // topThreeDogs.forEach((dog, index) => {
-    //   fetch(dog.url)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       softCopy[index].image = data.message;
-    //       setTopThreeDogs(softCopy);
-    //     });
-    // });
-    // };
-    // getImages(topThreeDogs);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.dogs]);
-  // useEffect(() => {
-  //   const getImages = async (topThreeDogs: ITopThree[]) => {
-  //     const softCopy = topThreeDogs;
-  //     topThreeDogs.forEach((dog, index) => {
-  //       fetch(dog.url)
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           softCopy[index].image = data.message;
-  //           setTopThreeDogs(softCopy);
-  //         });
-  //     });
-  //   };
-  //   getImages(topThreeDogs);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [props.dogs]);
 
   return (
-    <div>
-      {topThreeDogs.length === 3 &&
-        topThreeDogs.map((dog, index) => (
-          <TopThreeCard key={index} dog={dog} image={dogImgs[index]} />
-        ))}
+    <div className="TopThreeDogs">
+      {topThreeDogs.length === 3 && (
+        <>
+          <TopThreeCard dog={topThreeDogs[0]} image={props.first} />
+          <TopThreeCard dog={topThreeDogs[1]} image={props.second} />
+          <TopThreeCard dog={topThreeDogs[2]} image={props.third} />
+        </>
+      )}
     </div>
   );
 }
