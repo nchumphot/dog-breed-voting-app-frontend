@@ -11,6 +11,7 @@ function MainBody(): JSX.Element {
     { name: "", subbreed_name: "", score: 0 },
   ]);
 
+  console.log("before top 10");
   useEffect(() => {
     const fetchTopDogs = async () => {
       const response = await fetch(
@@ -20,6 +21,7 @@ function MainBody(): JSX.Element {
       setTopTenList(listTopDogs.scores);
     };
     fetchTopDogs();
+    console.log("after top 10");
   }, []);
 
   const leaderboardList = topTenList.map((dog: Dog, index) => (
@@ -37,11 +39,7 @@ function MainBody(): JSX.Element {
           <button onClick={() => setTriggerLeaderboard(!triggerLeaderboard)}>
             Refresh Leaderboard
           </button>
-          {/* <TopThree
-            dogs={topTenList}
-            triggerLeaderboard={triggerLeaderboard}
-            setTriggerLeaderboard={setTriggerLeaderboard}
-          /> */}
+          <TopThree dogs={topTenList} />
           <table className="leaderboard-table">
             <tr>
               <th>Position</th>

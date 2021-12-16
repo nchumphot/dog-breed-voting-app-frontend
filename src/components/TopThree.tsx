@@ -7,50 +7,75 @@ interface ITopThree {
   breed: string;
   subbreed: string | null;
   url: string;
+  image?: string;
 }
 
-export default function TopThree(props: {
-  dogs: Dog[];
-  triggerLeaderboard: boolean;
-  setTriggerLeaderboard: (val: boolean) => void;
-}): JSX.Element {
+export default function TopThree(props: { dogs: Dog[] }): JSX.Element {
   const [dogImgs, setDogImgs] = useState<string[]>([]);
-
-  const topThreeDogs = props.dogs.slice(0, 3).map((dog: Dog, index) => {
-    if (dog.subbreed_name === null) {
-      return {
-        rank: index + 1,
-        breed: dog.name,
-        subbreed: null,
-        url: `https://dog.ceo/api/breed/${dog.name}/images/random`,
-        image: null,
-      };
-    } else {
-      return {
-        rank: index + 1,
-        breed: dog.name,
-        subbreed: dog.subbreed_name,
-        url: `https://dog.ceo/api/breed/${dog.name}/${dog.subbreed_name}/images/random`,
-        image: null,
-      };
-    }
-  });
+  const [topThreeDogs, setTopThreeDogs] = useState<ITopThree[]>([]);
 
   useEffect(() => {
-    setDogImgs([]);
-    const getImages = async (topThreeDogs: ITopThree[]) => {
-      topThreeDogs.forEach((dog) => {
-        fetch(dog.url)
-          .then((response) => response.json())
-          .then((data) => {
-            setDogImgs([...dogImgs, data.message]);
-          });
-      });
-    };
-    getImages(topThreeDogs);
-    console.log(dogImgs);
+    const softCopy = topThreeDogs;
+    topThreeDogs.forEach((dog, index) => {
+      fetch(dog.url)
+        .then((response) => response.json())
+        .then((data) => {
+          softCopy[index].image = data.message;
+          setTopThreeDogs(softCopy);
+        });
+    });
+    console.log(topThreeDogs);
+    setTopThreeDogs(
+      props.dogs.slice(0, 3).map((dog: Dog, index) => {
+        if (dog.subbreed_name === null) {
+          return {
+            rank: index + 1,
+            breed: dog.name,
+            subbreed: null,
+            url: `https://dog.ceo/api/breed/${dog.name}/images/random`,
+            // image: null,
+          };
+        } else {
+          return {
+            rank: index + 1,
+            breed: dog.name,
+            subbreed: dog.subbreed_name,
+            url: `https://dog.ceo/api/breed/${dog.name}/${dog.subbreed_name}/images/random`,
+            // image: null,
+          };
+        }
+      })
+    );
+    console.log(topThreeDogs);
+    // const getImages = async (topThreeDogs: ITopThree[]) => {
+    // const softCopy = topThreeDogs;
+    // topThreeDogs.forEach((dog, index) => {
+    //   fetch(dog.url)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       softCopy[index].image = data.message;
+    //       setTopThreeDogs(softCopy);
+    //     });
+    // });
+    // };
+    // getImages(topThreeDogs);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topThreeDogs]);
+  }, [props.dogs]);
+  // useEffect(() => {
+  //   const getImages = async (topThreeDogs: ITopThree[]) => {
+  //     const softCopy = topThreeDogs;
+  //     topThreeDogs.forEach((dog, index) => {
+  //       fetch(dog.url)
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           softCopy[index].image = data.message;
+  //           setTopThreeDogs(softCopy);
+  //         });
+  //     });
+  //   };
+  //   getImages(topThreeDogs);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [props.dogs]);
 
   return (
     <div>
