@@ -7,7 +7,6 @@ import Dog from "./DogInterface";
 import axios from "axios";
 
 function MainBody(): JSX.Element {
-  const [triggerLeaderboard, setTriggerLeaderboard] = useState<boolean>(true);
   const [topTenList, setTopTenList] = useState<Dog[]>([
     { name: "", subbreed_name: "", score: 0 },
   ]);
@@ -60,9 +59,9 @@ function MainBody(): JSX.Element {
       {topTenList.length === 10 && (
         <div className="table-area">
           <h2>Leaderboard</h2>
-          <button onClick={() => setTriggerLeaderboard(!triggerLeaderboard)}>
+          {/* <button onClick={() => setTriggerLeaderboard(!triggerLeaderboard)}>
             Refresh Leaderboard
-          </button>
+          </button> */}
           <TopThree
             dogs={topTenList}
             first={dogImg0}
