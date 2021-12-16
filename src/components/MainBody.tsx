@@ -62,7 +62,7 @@ function MainBody(): JSX.Element {
           <h2>Leaderboard</h2>
           <button onClick={() => fetchTopDogs(setTopTenList)}>
             Refresh Leaderboard
-          </button> */}
+          </button>
           <TopThree
             dogs={topTenList}
             first={dogImg0}
