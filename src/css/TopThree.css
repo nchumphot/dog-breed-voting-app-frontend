@@ -1,0 +1,8 @@
+.TopThreeDogs {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
