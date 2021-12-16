@@ -5,6 +5,7 @@ import TopThree from "./TopThree";
 import { useEffect, useState } from "react";
 import Dog from "./DogInterface";
 import axios from "axios";
+import { fetchTopDogs } from "../utils/fetchTopDogs";
 
 function MainBody(): JSX.Element {
   const [topTenList, setTopTenList] = useState<Dog[]>([
@@ -59,7 +60,7 @@ function MainBody(): JSX.Element {
       {topTenList.length === 10 && (
         <div className="table-area">
           <h2>Leaderboard</h2>
-          {/* <button onClick={() => setTriggerLeaderboard(!triggerLeaderboard)}>
+          <button onClick={() => fetchTopDogs(setTopTenList)}>
             Refresh Leaderboard
           </button> */}
           <TopThree
