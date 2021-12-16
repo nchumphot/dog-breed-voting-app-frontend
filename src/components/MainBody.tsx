@@ -4,8 +4,7 @@ import LeaderboardCard from "./LeaderboardCard";
 import TopThree from "./TopThree";
 import { useEffect, useState } from "react";
 import Dog from "./DogInterface";
-import axios from "axios";
-import { fetchTopDogs } from "../utils/fetchTopDogs";
+import { topThreeImgs } from "../utils/topThreeImgs";
 
 function MainBody(): JSX.Element {
   const [topTenList, setTopTenList] = useState<Dog[]>([
@@ -16,36 +15,7 @@ function MainBody(): JSX.Element {
   const [dogImg2, setDogImg2] = useState<string>("");
 
   useEffect(() => {
-    const topThreeImgs = async () => {
-      axios
-        .get("https://dog-breed-voting-app.herokuapp.com/score")
-        .then((res) => {
-          console.log(res);
-          const imgUrl0 =
-            res.data.scores[0].subbreed_name !== null
-              ? `https://dog.ceo/api/breed/${res.data.scores[0].name}/${res.data.scores[0].subbreed_name}/images/random`
-              : `https://dog.ceo/api/breed/${res.data.scores[0].name}/images/random`;
-
-          axios.get(imgUrl0).then((res) => setDogImg0(res.data.message));
-
-          const imgUrl1 =
-            res.data.scores[1].subbreed_name !== null
-              ? `https://dog.ceo/api/breed/${res.data.scores[1].name}/${res.data.scores[1].subbreed_name}/images/random`
-              : `https://dog.ceo/api/breed/${res.data.scores[1].name}/images/random`;
-
-          axios.get(imgUrl1).then((res) => setDogImg1(res.data.message));
-
-          const imgUrl2 =
-            res.data.scores[2].subbreed_name !== null
-              ? `https://dog.ceo/api/breed/${res.data.scores[2].name}/${res.data.scores[2].subbreed_name}/images/random`
-              : `https://dog.ceo/api/breed/${res.data.scores[2].name}/images/random`;
-
-          axios.get(imgUrl2).then((res) => setDogImg2(res.data.message));
-
-          setTopTenList(res.data.scores);
-        });
-    };
-    topThreeImgs();
+    topThreeImgs(setDogImg0, setDogImg1, setDogImg2, setTopTenList);
   }, []);
 
   const leaderboardList = topTenList.map((dog: Dog, index) => (
@@ -60,7 +30,11 @@ function MainBody(): JSX.Element {
       {topTenList.length === 10 && (
         <div className="table-area">
           <h2>Leaderboard</h2>
-          <button onClick={() => fetchTopDogs(setTopTenList)}>
+          <button
+            onClick={() =>
+              topThreeImgs(setDogImg0, setDogImg1, setDogImg2, setTopTenList)
+            }
+          >
             Refresh Leaderboard
           </button>
           <TopThree
