@@ -1,4 +1,5 @@
 import "../css/TopThreeCard.css";
+import { capitalise } from "../utils/capitalise";
 
 interface TopThree {
   rank: number;
@@ -14,11 +15,18 @@ export default function TopThreeCard(props: {
 }): JSX.Element {
   console.log(props.image);
   return (
-    <div className="top-three-card">
+    <div className="top-three-card" id={`rank${props.dog.rank.toString()}`}>
+      {/* <div className={`rank${props.dog.rank.toString()}`}> */}
       <h1>{props.dog.rank.toString()}</h1>
       <img src={props.image} alt={`rank ${props.dog.rank}`} />
-      <h2>{props.dog.breed}</h2>
-      {props.dog.subbreed !== null ? <h2>{props.dog.subbreed}</h2> : <br />}
+      {props.dog.subbreed !== null ? (
+        <h2>
+          {capitalise(props.dog.subbreed) + " " + capitalise(props.dog.breed)}
+        </h2>
+      ) : (
+        <h2>{capitalise(props.dog.breed)}</h2>
+      )}
+      {/* </div> */}
     </div>
   );
 }
