@@ -70,12 +70,14 @@ function MainBody(): JSX.Element {
             third={dogImg2}
           />
           <table className="leaderboard-table">
-            <tr>
-              <th>Position</th>
-              <th>Breed</th>
-              <th>Scores</th>
-            </tr>
-            {leaderboardList}
+            <thead>
+              <tr>
+                <th>Position</th>
+                <th>Breed</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>{leaderboardList}</tbody>
           </table>
         </div>
       )}
